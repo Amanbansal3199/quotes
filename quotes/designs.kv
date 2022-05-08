@@ -1,0 +1,140 @@
+<LoginScreen>:
+    bg_color:[35/255,59/255,54/255,1]
+    GridLayout:
+        cols: 1
+        GridLayout:
+            padding:15,15
+            spacing:20,20
+            cols: 1
+
+            Label:
+                text: "User Login"
+                font_size:"20sp"
+            TextInput:
+                id:username
+                hint_text: "UserName"
+            TextInput:
+                id:password
+                password:True
+                hint_text: "Password"
+        RelativeLayout:
+            Button:
+                text: "Login"
+
+                size_hint:0.29,0.2
+                pos_hint:{"center_x":0.49,"center_y":0.9}
+                opacity:1 if self.state=="normal" else 0.1
+                on_press:root.next(root.ids.username.text,root.ids.password.text)
+            Label:
+                id:login_wrong
+                text:""
+        GridLayout:
+            cols:2
+            size_hint:0.2,0.2
+            padding:10,10
+            spacing:10,10
+            Button:
+                text: "Forgot Password"
+                background_color:1,1,1,0
+                color:"blue"
+                opacity:1 if self.state=="normal" else 0.1
+                on_press: root.forgot()
+            Button:
+                background_color:1,1,1,0
+                color:"blue"
+                opacity:1 if self.state=="normal" else 0.1
+                text: "don't have account? Sign up here"
+                text_color:"blue"
+                on_press: root.sign_up()
+<SignUpScreen>:
+    GridLayout:
+        cols: 1
+        padding:50,100
+        spacing:15,15
+        Label:
+            text:"Sign up for a space journey!"
+
+        TextInput:
+            id:username
+            hint_text:"Username"
+
+        TextInput:
+            id:password
+            hint_text:"Password"
+    RelativeLayout:
+        Button:
+            size_hint:0.2,0.1
+
+            pos_hint:{"center_x":0.499,"center_y":0.1}
+            text:"Submit"
+            on_press: root.add_user(root.ids.username.text,root.ids.password.text)
+<SignUpScreenSuccess>:
+    GridLayout:
+        cols:1
+        padding:10,10
+        Label:
+            text:"Sign Up Successfully"
+
+        Button:
+            text:"Back to Login page"
+            on_press:root.go_to()
+<ForgotPassword>:
+    GridLayout:
+        cols:1
+        padding:20
+        Label:
+            text:"Enter your email id or number"
+            size_hint:(None,None)
+            width:500
+            height:30
+        TextInput:
+            hint_text:"email id or phone number"
+            size_hint:(None,None)
+            width:750
+            height:70
+        Button:
+            text:"Submit"
+            size_hint:(None,None)
+            width:90
+            height:50
+            on_press:root.go_to_back()
+<LoginPage>:
+    GridLayout:
+        cols:1
+        padding:30,30
+        spacing:30,30
+        RelativeLayout:
+            ImageButton:
+                source:"logout_hover.png" if self.hovered else "logout_nothover.png"
+                size_hint:0.4,0.4
+                pos_hint:{"center_x":0.93,"center_y":0.8}
+                on_press:root.log_out()
+
+        Label:
+            text:"How do you feel!"
+        TextInput:
+            id: feeling
+            hint_text:"Things to try:happy,sad,unloved......."
+
+        Button:
+
+            text:"Enlighten me"
+            on_press: root.get_quote(root.ids.feeling.text)
+        ScrollView:
+            Label:
+                id: qu
+                text:" "
+                text_size:self.width,None
+                size_hint_y:None
+                height:self.texture_size[1]
+<RootWidget>:
+    LoginScreen:
+        name: "Login_Screen"
+    SignUpScreen:
+        name:"sign_up_screen"
+    SignUpScreenSuccess:
+        name:"sign_up_successfully"
+    ForgotPassword:
+        name:"Forgot_Password"
+    LoginPage:
+        name:"Login_page"
